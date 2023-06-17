@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
 
   const [mode, setMode] = useState('light');
+  const [textMode, setTextMode] = useState('dark');
   const [alert, setAlert] = useState(null);
   const [myStyle, setMyStyle] = useState(
     {
@@ -30,6 +31,7 @@ function App() {
           backgroundColor: 'gray'
         }
       )
+      setTextMode('light');
       setMode('dark');
       showAlert("Dark Mode is Enabled", "success")
       setBtnText("Light Mode")
@@ -41,6 +43,7 @@ function App() {
           backgroundColor: 'white'
         }
       )
+      setTextMode('dark');
       setMode('light');
       showAlert("Light Mode is Enabled", "success")
       setBtnText("Dark Mode")
@@ -117,7 +120,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route exact path='/' element={<TextForm mode={mode} />} />
-            <Route exact path='/about' element={<About mode={mode} />} />
+            <Route exact path='/about' element={<About mode={mode} textMode={textMode} />} />
           </Routes>
         </div>
 

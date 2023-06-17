@@ -60,6 +60,7 @@ export default function TextForm(props) {
         var text = document.getElementById("myBox");
         text.select();
         navigator.clipboard.writeText(text.value);
+        document.getSelection().removeAllRanges();
         setRemark("Text Copied to Clipboard!")
     }
 
@@ -95,25 +96,25 @@ export default function TextForm(props) {
 
                 <h1>{props.heading}</h1>
 
-                <textarea className={`form-control bg-${props.mode}-subtle`} id="myBox" style={{ backgroundColor: props.mode === 'dark' ? 'gray' : 'white' }} value={text} rows="8" onChange={handleOnChange}></textarea>
+                <textarea className={`form-control bg-${props.mode}-subtle`} id="myBox" style={{ backgroundColor: props.mode === 'dark' ? 'gray' : 'white' }} value={text} rows="5" onChange={handleOnChange}></textarea>
 
                 <p className="my-3">{remark}</p>
 
-                <button className="btn btn-primary my-3 mx-3" onClick={toUpperCase}>Text to UPPERCSASE</button>
+                <button disabled={text.length === 0} className="btn btn-primary my-3 mx-3" onClick={toUpperCase}>Text to UPPERCSASE</button>
 
-                <button className="btn btn-warning my-3 mx-3" onClick={toLowerCase}>Text to lowercase</button>
+                <button disabled={text.length === 0} className="btn btn-warning my-3 mx-3" onClick={toLowerCase}>Text to lowercase</button>
 
-                <button className="btn btn-light my-3 mx-3" onClick={toTitleCase}>Text to Title Case</button>
+                <button disabled={text.length === 0} className="btn btn-light my-3 mx-3" onClick={toTitleCase}>Text to Title Case</button>
 
-                <button className="btn btn-dark my-3 mx-3" onClick={toAlternateCase}>Text to AlTeRnAtEcAsE</button>
+                <button disabled={text.length === 0} className="btn btn-dark my-3 mx-3" onClick={toAlternateCase}>Text to AlTeRnAtEcAsE</button>
 
-                <button className="btn btn-success my-3 mx-3" onClick={handleCopy}>Copy Text</button>
+                <button disabled={text.length === 0} className="btn btn-success my-3 mx-3" onClick={handleCopy}>Copy Text</button>
 
-                <button className="btn btn-secondary my-3 mx-3" onClick={removeExtraSpaces}>Remove Extra Spaces</button>
+                <button disabled={text.length === 0} className="btn btn-secondary my-3 mx-3" onClick={removeExtraSpaces}>Remove Extra Spaces</button>
 
-                <button className="btn btn-danger mx-3 my-3" type="submit" onClick={speak}>Speak Text</button>
+                <button disabled={text.length === 0} className="btn btn-danger mx-3 my-3" type="submit" onClick={speak}>Speak Text</button>
 
-                <button className="btn btn-info my-3 mx-3" onClick={clearText}>Clear Input</button>
+                <button disabled={text.length === 0} className="btn btn-info my-3 mx-3" onClick={clearText}>Clear Input</button>
 
             </div>
 
@@ -121,7 +122,7 @@ export default function TextForm(props) {
 
                 <div className="summary mx-5">
                     <h2>TEXT SUMMARY</h2>
-                    <p>Input : {text.split(" ").length} Words and {text.length} Characters</p>
+                    <p>Input : {text.split(" ").filter((element) => { return element.length !== 0 }).length} Words and {text.length} Characters</p>
                     <p>Average Time Required to read this - {0.0033 * text.split(" ").length} Minutes</p>
                     {/* <p>Count of Vowels - {countV}</p>
                 <p>Count of Consonants - {countC}</p> */}
@@ -129,7 +130,8 @@ export default function TextForm(props) {
 
                 <div className="preview mx-5">
                     <h3>PREVIEW TEXT HERE</h3>
-                    <p>{text === 'Default Text' ? "Enter Text in Text Box Above to Preview it Here!" : text}</p>
+                    {/* <p>{text === 'Default Text' ? "Enter Text in Text Box Above to Preview it Here!" : text}</p> */}
+                    <p>{text.length > 0 ? text : "Nothing To Preview!"}</p>
                 </div>
             </div>
 
