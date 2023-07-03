@@ -120,6 +120,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route exact path='/' element={<TextForm mode={mode} />} />
+            <Route exact path='/TextEdit' element={<TextForm mode={mode} />} />
             <Route exact path='/about' element={<About mode={mode} textMode={textMode} />} />
           </Routes>
         </div>
